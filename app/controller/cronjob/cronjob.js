@@ -8,12 +8,12 @@ module.exports = function($scope, $http, $uibModal, fusio) {
   $scope.load = function() {
     var search = encodeURIComponent($scope.search ? $scope.search : '');
 
-    $http.get(fusio.baseUrl + 'backend/app?search=' + search)
+    $http.get(fusio.baseUrl + 'backend/cronjob?search=' + search)
       .then(function(response) {
         var data = response.data;
         $scope.totalResults = data.totalResults;
         $scope.startIndex = 0;
-        $scope.apps = data.entry;
+        $scope.cronjobs = data.entry;
       });
   };
 
@@ -21,21 +21,21 @@ module.exports = function($scope, $http, $uibModal, fusio) {
     var startIndex = ($scope.startIndex - 1) * 16;
     var search = encodeURIComponent($scope.search ? $scope.search : '');
 
-    $http.get(fusio.baseUrl + 'backend/app?startIndex=' + startIndex + '&search=' + search)
+    $http.get(fusio.baseUrl + 'backend/cronjob?startIndex=' + startIndex + '&search=' + search)
       .then(function(response) {
         var data = response.data;
         $scope.totalResults = data.totalResults;
-        $scope.apps = data.entry;
+        $scope.cronjobs = data.entry;
       });
   };
 
   $scope.doSearch = function(search) {
-    $http.get(fusio.baseUrl + 'backend/app?search=' + encodeURIComponent(search ? search : ''))
+    $http.get(fusio.baseUrl + 'backend/cronjob?search=' + encodeURIComponent(search ? search : ''))
       .then(function(response) {
         var data = response.data;
         $scope.totalResults = data.totalResults;
         $scope.startIndex = 0;
-        $scope.apps = data.entry;
+        $scope.cronjobs = data.entry;
       });
   };
 
@@ -43,8 +43,8 @@ module.exports = function($scope, $http, $uibModal, fusio) {
     var modalInstance = $uibModal.open({
       size: 'lg',
       backdrop: 'static',
-      templateUrl: 'app/controller/app/create.html',
-      controller: 'AppCreateCtrl'
+      templateUrl: 'app/controller/cronjob/create.html',
+      controller: 'CronjobCreateCtrl'
     });
 
     modalInstance.result.then(function(response) {
@@ -54,15 +54,15 @@ module.exports = function($scope, $http, $uibModal, fusio) {
     });
   };
 
-  $scope.openUpdateDialog = function(app) {
+  $scope.openUpdateDialog = function(cronjob) {
     var modalInstance = $uibModal.open({
       size: 'lg',
       backdrop: 'static',
-      templateUrl: 'app/controller/app/update.html',
-      controller: 'AppUpdateCtrl',
+      templateUrl: 'app/controller/cronjob/update.html',
+      controller: 'CronjobUpdateCtrl',
       resolve: {
-        app: function() {
-          return app;
+        cronjob: function() {
+          return cronjob;
         }
       }
     });
@@ -74,15 +74,35 @@ module.exports = function($scope, $http, $uibModal, fusio) {
     });
   };
 
-  $scope.openDeleteDialog = function(app) {
+  $scope.openDeleteDialog = function(cronjob) {
     var modalInstance = $uibModal.open({
       size: 'lg',
       backdrop: 'static',
-      templateUrl: 'app/controller/app/delete.html',
-      controller: 'AppDeleteCtrl',
+      templateUrl: 'app/controller/cronjob/delete.html',
+      controller: 'CronjobDeleteCtrl',
       resolve: {
-        app: function() {
-          return app;
+        cronjob: function() {
+          return cronjob;
+        }
+      }
+    });
+
+    modalInstance.result.then(function(response) {
+      $scope.response = response;
+      $scope.load();
+    }, function() {
+    });
+  };
+
+  $scope.openErrorDialog = function(cronjob) {
+    var modalInstance = $uibModal.open({
+      size: 'lg',
+      backdrop: 'static',
+      templateUrl: 'app/controller/cronjob/error.html',
+      controller: 'CronjobErrorCtrl',
+      resolve: {
+        cronjob: function() {
+          return cronjob;
         }
       }
     });

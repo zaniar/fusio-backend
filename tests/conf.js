@@ -9,6 +9,7 @@ exports.config = {
     'app/app.js',
     'app/audit.js',
     'app/config.js',
+    'app/cronjob.js',
     'app/error.js',
     'app/log.js',
     'app/rate.js',
@@ -22,7 +23,7 @@ exports.config = {
   ],
   baseUrl: 'http://127.0.0.1:8008/fusio/index.htm',
   capabilities: {
-    browserName: 'firefox'
+    browserName: 'chrome'
   },
   onPrepare: function() {
     // login
