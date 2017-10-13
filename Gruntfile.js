@@ -18,6 +18,7 @@ module.exports = function(grunt){
           './node_modules/ace-builds/src-min-noconflict/mode-xml.js',
           './node_modules/ace-builds/src-min-noconflict/mode-yaml.js',
           './node_modules/ace-builds/src-min-noconflict/worker-javascript.js',
+          './node_modules/ace-builds/src-min-noconflict/worker-php.js',
           './node_modules/ace-builds/src-min-noconflict/worker-json.js',
           './dist/fusio-bundle.min.js',
           './dist/fusio-templates.js'
