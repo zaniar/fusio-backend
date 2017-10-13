@@ -53,6 +53,11 @@ module.exports = function($scope, $http, $uibModalInstance, $uibModal, action, f
         });
     }
   };
+  
+  $scope.aceLoaded = function(_editor){
+    var _session = _editor.getSession();
+	_session.setMode({path:_session.getMode().$id, inline: true});
+  };
 
   $http.get(fusio.baseUrl + 'backend/action/' + action.id)
     .then(function(response) {

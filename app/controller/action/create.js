@@ -69,5 +69,10 @@ module.exports = function($scope, $http, $uibModalInstance, formBuilder, fusio) 
         });
     }
   };
+  
+  $scope.aceLoaded = function(_editor){
+    var _session = _editor.getSession();
+	_session.setMode({path:_session.getMode().$id, inline: true});
+  };
 
 };
