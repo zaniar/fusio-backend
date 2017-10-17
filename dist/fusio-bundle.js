@@ -1673,7 +1673,7 @@ module.exports = function($scope, $http, $uibModal, $uibModalInstance, fusio) {
       });
   };
 
-  $http.get(fusio.baseUrl + 'backend/action')
+  $http.get(fusio.baseUrl + 'backend/action?count=1024')
     .then(function(response) {
       $scope.actions = response.data.entry;
     });
@@ -1969,7 +1969,7 @@ module.exports = function($scope, $http, $uibModal, $uibModalInstance, fusio, cr
       });
   };
 
-  $http.get(fusio.baseUrl + 'backend/action')
+  $http.get(fusio.baseUrl + 'backend/action?count=1024')
     .then(function(response) {
       $scope.actions = response.data.entry;
     });
@@ -2600,7 +2600,8 @@ module.exports = function($scope, $http, $location, $window, $rootScope, fusio) 
       method: 'POST',
       url: fusio.baseUrl + 'backend/token',
       headers: {
-        authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
+        'Authorization': 'Basic ' + btoa(credentials.username + ':' + credentials.password),
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: 'grant_type=client_credentials'
     };
@@ -3309,12 +3310,12 @@ module.exports = function($scope, $http, $uibModalInstance, $timeout, fusio) {
       });
   };
 
-  $http.get(fusio.baseUrl + 'backend/action')
+  $http.get(fusio.baseUrl + 'backend/action?count=1024')
     .then(function(response) {
       $scope.actions = response.data.entry;
     });
 
-  $http.get(fusio.baseUrl + 'backend/schema')
+  $http.get(fusio.baseUrl + 'backend/schema?count=1024')
     .then(function(response) {
       $scope.schemas = response.data.entry;
     });
@@ -3730,12 +3731,12 @@ module.exports = function($scope, $http, $uibModal, $uibModalInstance, $timeout,
       });
     });
 
-  $http.get(fusio.baseUrl + 'backend/action')
+  $http.get(fusio.baseUrl + 'backend/action?count=1024')
     .then(function(response) {
       $scope.actions = response.data.entry;
     });
 
-  $http.get(fusio.baseUrl + 'backend/schema')
+  $http.get(fusio.baseUrl + 'backend/schema?count=1024')
     .then(function(response) {
       $scope.schemas = response.data.entry;
     });
