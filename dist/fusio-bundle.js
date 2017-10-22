@@ -339,9 +339,14 @@ module.exports = function($scope, $http, $uibModalInstance, $compile, formBuilde
   $scope.elements = [];
   $scope.config = {};
   $scope.actions = [];
+  $scope.class = "";
 
   $scope.create = function(action) {
     var data = angular.copy(action);
+    
+    if (!data.class) {
+      data.class = $scope.class;
+    }
 
     if (angular.isObject($scope.config)) {
       data.config = formBuilder.postProcessModel($scope.config, $scope.elements);
@@ -405,7 +410,7 @@ module.exports = function($scope, $http, $uibModalInstance, $compile, formBuilde
           containerEl.children().remove();
 
           containerEl.append('<label for="class">Class Name:</label>');
-          containerEl.append('<input type="text" id="class-name" ng-model="action.class" aria-describedby="classHelp" class="form-control">');
+          containerEl.append('<input type="text" id="class-name" ng-model="class" aria-describedby="classHelp" class="form-control">');
           containerEl.append('<span class="help-block" id="classHelp"></span>');
 
           $compile(angular.element(document.querySelector('#class-name')))($scope);
@@ -414,7 +419,7 @@ module.exports = function($scope, $http, $uibModalInstance, $compile, formBuilde
   
   $scope.aceLoaded = function(_editor){
     var _session = _editor.getSession();
-	_session.setMode({path:_session.getMode().$id, inline: true});
+	  _session.setMode({path:_session.getMode().$id, inline: true});
   };
 
 };
@@ -593,7 +598,7 @@ module.exports = function($scope, $http, $routeParams, fusio, formBuilder) {
 
   $scope.aceLoaded = function(_editor){
     var _session = _editor.getSession();
-	_session.setMode({path:_session.getMode().$id, inline: true});
+	  _session.setMode({path:_session.getMode().$id, inline: true});
   };
 
 };
