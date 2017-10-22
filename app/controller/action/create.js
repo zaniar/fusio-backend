@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function($scope, $http, $uibModalInstance, formBuilder, fusio) {
+module.exports = function($scope, $http, $uibModalInstance, $compile, formBuilder, fusio) {
 
   $scope.action = {
     name: "",
@@ -37,6 +37,11 @@ module.exports = function($scope, $http, $uibModalInstance, formBuilder, fusio) 
       var data = response.data;
       $scope.actions = data.actions;
 
+      $scope.actions.unshift({
+        "name": "PHP-Class",
+        "class": ""
+      });
+
       if (data.actions[0]) {
         $scope.action.class = data.actions[0].class;
         $scope.loadConfig();
@@ -67,6 +72,15 @@ module.exports = function($scope, $http, $uibModalInstance, formBuilder, fusio) 
             containerEl.append(el);
           }
         });
+    } else {
+          var containerEl = angular.element(document.querySelector('#config-form'));
+          containerEl.children().remove();
+
+          containerEl.append('<label for="class">Class Name:</label>');
+          containerEl.append('<input type="text" id="class-name" ng-model="action.class" aria-describedby="classHelp" class="form-control">');
+          containerEl.append('<span class="help-block" id="classHelp"></span>');
+
+          $compile(angular.element(document.querySelector('#class-name')))($scope);
     }
   };
   
