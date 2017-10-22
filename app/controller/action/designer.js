@@ -138,4 +138,9 @@ module.exports = function($scope, $http, $routeParams, fusio, formBuilder) {
       $scope.loadConfig();
     });
 
+  $scope.aceLoaded = function(_editor){
+    var _session = _editor.getSession();
+	  _session.setMode({path:_session.getMode().$id, inline: true});
+  };
+
 };

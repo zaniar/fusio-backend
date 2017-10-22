@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="requestBody">Body:</label>
-                        <div ui-ace="{mode: 'json'}" id="requestBody" ng-model="request.body" aria-describedby="requestBodyHelp"></div>
+                        <div ui-ace="{mode: 'json', workerPath: './dist/workers'}" id="requestBody" ng-model="request.body" aria-describedby="requestBodyHelp"></div>
                         <span class="help-block" id="requestBodyHelp">The JSON data of the request body</span>
                     </div>
                 </form>
