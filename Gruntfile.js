@@ -17,9 +17,6 @@ module.exports = function(grunt){
           './node_modules/ace-builds/src-min-noconflict/mode-sql.js',
           './node_modules/ace-builds/src-min-noconflict/mode-xml.js',
           './node_modules/ace-builds/src-min-noconflict/mode-yaml.js',
-          './node_modules/ace-builds/src-min-noconflict/worker-javascript.js',
-          './node_modules/ace-builds/src-min-noconflict/worker-php.js',
-          './node_modules/ace-builds/src-min-noconflict/worker-json.js',
           './dist/fusio-bundle.min.js',
           './dist/fusio-templates.js'
         ],
@@ -43,6 +40,18 @@ module.exports = function(grunt){
           './css/default.css'
         ],
         dest: './dist/fusio.min.css'
+      }
+    },
+    copy: {
+      files: {
+        expand: true,
+        cwd: './node_modules/ace-builds/src-min-noconflict',
+        src: [
+          'worker-javascript.js',
+          'worker-php.js',
+          'worker-json.js'
+        ],
+        dest: './dist/workers'
       }
     },
     uglify: {
@@ -88,10 +97,11 @@ module.exports = function(grunt){
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-browserify');
 
-  grunt.registerTask('default', ['browserify', 'ngtemplates', 'uglify', 'concat']);
+  grunt.registerTask('default', ['browserify', 'ngtemplates', 'uglify', 'copy', 'concat']);
 
 };
