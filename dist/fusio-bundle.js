@@ -461,12 +461,13 @@ module.exports = function($scope, $http, $uibModalInstance, action, fusio) {
 module.exports = function($scope, $http, $routeParams, fusio, formBuilder) {
 
   $scope.action = {};
-  $scope.methods = ['GET', 'POST', 'PUT', 'DELETE'];
+  $scope.methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
   $scope.request = {
     method: 'GET',
     uriFragments: '',
     parameters: '',
+    headers: '',
     body: '{}'
   };
   $scope.response = null;
@@ -479,7 +480,7 @@ module.exports = function($scope, $http, $routeParams, fusio, formBuilder) {
       data.config = formBuilder.postProcessModel($scope.config, $scope.elements);
     }
 
-    // if we have a config we must update the action first else we can directly 
+    // if we have a config we must update the action first else we can directly
     // execute the action
     if (angular.isObject(data.config) && !angular.equals(data.config, {})) {
       $http.put(fusio.baseUrl + 'backend/action/' + action.id, data)
@@ -505,6 +506,7 @@ module.exports = function($scope, $http, $routeParams, fusio, formBuilder) {
       method: request.method,
       uriFragments: request.uriFragments,
       parameters: request.parameters,
+      headers: request.headers,
       body: body
     };
 
@@ -560,8 +562,8 @@ module.exports = function($scope, $http, $routeParams, fusio, formBuilder) {
     }
   };
 
-  $scope.adjustEditorHeight = function(){
-    var blockCount = 3;
+  $scope.adjustEditorHeight = function() {
+    var blockCount = 4;
     var blockUsed = 0;
     var formEditor = false;
     var formElements = document.querySelectorAll('#config-form .form-group');
@@ -3409,6 +3411,9 @@ module.exports = function($scope, $http, $uibModal, $uibModalInstance, $timeout,
 
   $scope.addResponse = function(code) {
     var method = $scope.methods[$scope.indexMethod];
+    if (!$scope.route.config[$scope.indexVersion].methods[method].responses) {
+      $scope.route.config[$scope.indexVersion].methods[method].responses = {};
+    }
     if (!$scope.route.config[$scope.indexVersion].methods[method].responses[code]) {
       $scope.route.config[$scope.indexVersion].methods[method].responses[code] = 1;
     }
@@ -3831,6 +3836,9 @@ module.exports = function($scope, $http, $uibModal, $uibModalInstance, $timeout,
 
   $scope.addResponse = function(code) {
     var method = $scope.methods[$scope.indexMethod];
+    if (!$scope.route.config[$scope.indexVersion].methods[method].responses) {
+      $scope.route.config[$scope.indexVersion].methods[method].responses = {};
+    }
     if (!$scope.route.config[$scope.indexVersion].methods[method].responses[code]) {
       $scope.route.config[$scope.indexVersion].methods[method].responses[code] = 1;
     }
