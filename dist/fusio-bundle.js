@@ -3737,6 +3737,10 @@ module.exports = function($scope, $http, $uibModal, $uibModalInstance, $timeout,
             } else {
               methods[$scope.methods[i]] = $scope.newEmptyMethod();
             }
+			// check and add missing responses
+			if (!methods[$scope.methods[i]].responses) {
+				methods[$scope.methods[i]].responses = {};
+			}
           }
           ver.methods = methods;
           config.push(ver);
